@@ -63,3 +63,13 @@ function first(array, n) {
     return array.slice(0, 1)
   }
 }
+
+function last(array, n) {
+  if n {
+    return array.slice(-n)
+  } else {
+    return array.slice(-1)
+  }
+}
+
+function compact
