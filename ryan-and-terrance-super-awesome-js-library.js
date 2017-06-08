@@ -224,7 +224,7 @@ toneloke = (function(){
       return compacted
     },
 
-    // function flatten(array, [shallow]){
+    // flatten: function(array, shallow){
     //
     // }
 
