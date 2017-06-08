@@ -218,6 +218,10 @@ function compact(array) {
   return compacted
 }
 
+// function flatten(array, [shallow]){
+//
+// }
+
 function uniq(array, isSorted, iteratee) {
   if (iteratee) {
     let uniqued = iteratee(array)
@@ -243,6 +247,12 @@ function uniq(array, isSorted, iteratee) {
   return uniqed
 }
 
+// Functions
+
+// function bind(function, object, *arguments){
+//
+// }
+
 // Object Functions
 
 function keys(object) {
@@ -266,6 +276,14 @@ function values(object) {
 }
 
 
-function Functions() {
-  
+function functions(object) {
+  let propertyArray = Object.getOwnPropertyNames(object)
+  let functionArray = []
+  for (let i = 0; i < propertyArray.length; i++) {
+    let element = propertyArray[i]
+    if (typeof element === 'function') {
+      functionArray.push(element)
+    }
+  }
+  return functionArray
 }
