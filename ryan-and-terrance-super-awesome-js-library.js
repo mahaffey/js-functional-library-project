@@ -31,7 +31,7 @@ function map(list, iteratee, context) {
     for (let i = 0; i < list.length; i++) {
       const element = list[i]
       if (context != undefined) {
-        returnList.push(iteratee.call(context, element, i list))
+        returnList.push(iteratee.call(context, element, i, list))
       } else {
         returnList.push(iteratee (element, i, list))
       }
@@ -49,15 +49,148 @@ function map(list, iteratee, context) {
   return returnList
 }
 
-
 function reduce(list, iteratee, memo, context) {
+  if (Array.isArray(list)) {
+    if (!memo) {
+      memo = list[0]
+      for (var i = 0; i < list.length; i++) {
+        const element = list[i]
+        if (context != undefined) {
+          iteratee.call(context, memo, element, i, list)
+        } else {
+          iteratee(memo, element, i, list)
+        }
+      }
+    } else {
+      for (let i = 0; i < list.length; i++) {
+        const element = list[i]
+        if (context != undefined) {
+          iteratee.call(context, memo, element, i, list)
+        } else {
+          iteratee(memo, element, i, list)
+        }
+      }
+    }
+  } else if (typeof list === 'object') {
+    if (!memo) {
+      memo = list[0]
+      for (var key in list) {
+        const value = list[key]
+        if (context != undefined) {
+          iteratee.call(context, memo, value, key, list)
+        } else {
+          iteratee(memo, value, key, list)
+        }
+      }
+    } else {
+      for (var key in list) {
+        const value = list[key]
+        if (context != undefined) {
+          iteratee.call(context, memo, value, key, list)
+        } else {
+          iteratee(memo, value, key, list)
+        }
+      }
+    }
+  }
+}
 
+function find(list, predicate, context) {
+  if (Array.isArray(list)) {
+    for (let i = 0; i < list.length; i++) {
+      const element = list[i]
+      if (context != undefined) {
+        if (predicate.call(context, element, i, list)) {
+          return element
+        }
+      } else {
+        if (predicate(element, i, list)) {
+          return element
+        }
+      }
+    }
+  } else if (typeof list === 'object') {
+    for (var key in list) {
+      const value = list[key]
+      if (context != undefined) {
+        if (predicate.call(context, value, key, list)) {
+          return value
+        }
+      } else {
+        if (predicate(value, key, list)) {
+          return value
+        }
+      }
+    }
+  }
+}
+
+function filter(list, predicate, context) {
+  let filtered = []
+  if (Array.isArray(list)) {
+    for (let i = 0; i < list.length; i++) {
+      const element = list[i]
+      if (context != undefined) {
+        if (predicate.call(context, element, i, list)) {
+          filtered.push(element)
+        }
+      } else {
+        if (predicate(element, i, list)) {
+          filtered.push(element)
+        }
+      }
+    }
+  } else if (typeof list === 'object') {
+    for (var key in list) {
+      const value = list[key]
+      if (context != undefined) {
+        if (predicate.call(context, value, key, list)) {
+          filtered.push(value)
+        }
+      } else {
+        if (predicate(value, key, list)) {
+          filtered.push(value)
+        }
+      }
+    }
+  }
+  return filtered
+}
+
+// function sortBy(list, iteree, context) {
+//   // the array of new, manipulated values
+//   let itereed = []
+//   // the original values sorted list based on their itereed ascended value order
+//   let sorted = list
+//   // the itereed order index of the
+//   let indexed = []
+//   if (Array.isArray(list)) {
+//     for (let i = 0; i < list.length; i++) {
+//       const element = list[i]
+//       if (context != undefined) {
+//         itereed.push(iteree.call(context, element))
+//       } else {
+//         itereed.push(iteree(element))
+//       }
+//     }
+//
+//   } else if (typeof list === 'object') {
+//
+//   }
+// }
+
+function size(list) {
+  let i = 0
+  while (list[i] != undefined) {
+    i++
+  }
+  return i
 }
 
 // Array Functions
 
 function first(array, n) {
-  if n {
+  if (n) {
     return array.slice(0, n)
   } else {
     return array.slice(0, 1)
@@ -65,7 +198,7 @@ function first(array, n) {
 }
 
 function last(array, n) {
-  if n {
+  if (n) {
     return array.slice(-n)
   } else {
     return array.slice(-1)
@@ -91,7 +224,7 @@ function uniq(array, isSorted, iteratee) {
   } else {
     let uniqed = array
   }
-  
+
   if (isSorted) {
     for (let i = array.length; i >= 0; i--) {
       if (array[i] === array[i-1]) {
@@ -108,4 +241,31 @@ function uniq(array, isSorted, iteratee) {
     }
   }
   return uniqed
+}
+
+// Object Functions
+
+function keys(object) {
+  let keys = []
+  if (typeof object === 'object') {
+    for (var key in object) {
+      keys.push(key)
+    }
+  }
+  return keys
+}
+
+function values(object) {
+  let values = []
+  if (typeof object === 'object') {
+    for (var key in object) {
+      keys.push(object[key])
+    }
+  }
+  return values
+}
+
+
+function Functions() {
+  
 }
