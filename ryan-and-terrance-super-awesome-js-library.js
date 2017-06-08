@@ -5,7 +5,7 @@ function each(list, iteratee, context) {
     for (let i = 0; i < list.length; i++) {
       const element = list[i]
       if(context != undefined) {
-        iteratee.call(context, element)
+        iteratee.call(context, element, i, list)
       } else {
         iteratee (element, i, list)
       }
@@ -14,7 +14,7 @@ function each(list, iteratee, context) {
     for (var key in list) {
       const value = list[key]
       if(context != undefined) {
-        iteratee.call(context, value)
+        iteratee.call(context, value, key, list)
       } else {
         iteratee (value, key, list)
       }
@@ -29,13 +29,26 @@ function map(list, iteratee, context) {
   if (Array.isArray(list)) {
     for (let i = 0; i < list.length; i++) {
       const element = list[i]
-      returnList.push(iteratee (element, i, list))
+      if (context != undefined) {
+        returnList.push(iteratee.call(context, element, i list))
+      } else {
+        returnList.push(iteratee (element, i, list))
+      }
     }
   } else if (typeof list === 'object') {
     for (var key in list) {
       const value = list[key]
-      returnList.push(iteratee (value, key, list))
+      if (context != undefined) {
+        returnList.push(iteratee.call(context, value, key, list))
+      } else {
+        returnList.push(iteratee (value, key, list))
+      }
     }
   }
   return returnList
+}
+
+
+function reduce(list, iteratee, memo, context) {
+
 }
