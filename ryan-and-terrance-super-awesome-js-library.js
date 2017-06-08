@@ -24,7 +24,6 @@ function each(list, iteratee, context) {
   return list
 }
 
-
 function map(list, iteratee, context) {
   let returnList = []
   if (Array.isArray(list)) {
@@ -157,27 +156,26 @@ function filter(list, predicate, context) {
   return filtered
 }
 
-// function sortBy(list, iteree, context) {
-//   // the array of new, manipulated values
-//   let itereed = []
-//   // the original values sorted list based on their itereed ascended value order
-//   let sorted = list
-//   // the itereed order index of the
-//   let indexed = []
-//   if (Array.isArray(list)) {
-//     for (let i = 0; i < list.length; i++) {
-//       const element = list[i]
-//       if (context != undefined) {
-//         itereed.push(iteree.call(context, element))
-//       } else {
-//         itereed.push(iteree(element))
-//       }
-//     }
-//
-//   } else if (typeof list === 'object') {
-//
-//   }
-// }
+function sortBy(list, iteree, context) {
+  let sortable = {}
+  for (let i = 0; i < list.length; i++){
+    const key = list[i]
+    const value = iteree(key)
+    sortable[key] = value
+  }
+
+  let sorted = Object.keys(sortable).sort(function(a,b){return sortable[a]-sortable[b]})
+
+  if (typeof list[0] === 'number') {
+    for (let i = 0; i < sorted.length; i++) {
+      sorted[i] = parseInt(sorted[i], 10)
+    }
+  }
+
+  return sorted
+}
+
+function(a,b){return sortable[a]-sortable[b]}
 
 function size(list) {
   let i = 0
