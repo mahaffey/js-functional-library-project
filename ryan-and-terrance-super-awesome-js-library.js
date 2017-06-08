@@ -72,4 +72,40 @@ function last(array, n) {
   }
 }
 
-function compact
+function compact(array) {
+  let falsy = [false, null, 0, "", NaN, undefined]
+  let compacted = array
+  for (let i = array.length - 1; i >= 0; i--) {
+    for (let j = 0 ; j < falsy.length; j++) {
+      if (array[i] === falsy[j]) {
+        compacted.splice(i, 1)
+      }
+    }
+  }
+  return compacted
+}
+
+function uniq(array, isSorted, iteratee) {
+  if (iteratee) {
+    let uniqued = iteratee(array)
+  } else {
+    let uniqed = array
+  }
+  
+  if (isSorted) {
+    for (let i = array.length; i >= 0; i--) {
+      if (array[i] === array[i-1]) {
+        uniqed.splice(i, 1)
+      }
+    }
+  } else {
+    for (let i = array.length - 1; i >= 0; i--) {
+      for (let j = array.length - 2; j >= 0; i--) {
+        if (array[i] === array[j]) {
+          uniqed.splice(i, 1)
+        }
+      }
+    }
+  }
+  return uniqed
+}
