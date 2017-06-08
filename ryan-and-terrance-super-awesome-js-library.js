@@ -1,3 +1,4 @@
+// Collection Functions
 arr = [1,2,3,4]
 
 function each(list, iteratee, context) {
@@ -51,4 +52,14 @@ function map(list, iteratee, context) {
 
 function reduce(list, iteratee, memo, context) {
 
+}
+
+// Array Functions
+
+function first(array, n) {
+  if n {
+    return array.slice(0, n)
+  } else {
+    return array.slice(0, 1)
+  }
 }
